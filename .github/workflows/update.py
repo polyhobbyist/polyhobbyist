@@ -32,13 +32,20 @@ def create_markdown_file(playlist, videos):
     title = playlist['snippet']['title']
     # get the playlist id
     playlist_id = playlist['id']
+
+    publised_at = playlist['snippet']['publishedAt']
+    # convert the date to a format that Jekyll understands
+    date = publised_at.split('T')[0]
+
+    # convert title to a format that can be used as a file name
+    title_as_filename = title.replace(' ', '-').lower()
+
     # create a markdown file for the playlist
-    with open(f'_posts/{playlist_id}.md', 'w') as file:
+    with open(f'_posts/{date}-{title_as_filename}.md', 'w') as file:
         # write the front matter
         file.write('---\n')
         file.write(f'title: "{title}"\n')
         file.write('layout: post\n')
-        file.write(f'categories: "{title}"\n\n')
         file.write('---\n\n')
         # iterate over the videos in the playlist
         for video in videos['items']:

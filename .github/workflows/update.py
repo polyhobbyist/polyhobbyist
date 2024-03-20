@@ -7,10 +7,6 @@
 import os
 import json
 import requests
-from datetime import datetime
-from dateutil import parser
-from dateutil.tz import tzlocal
-from dateutil.tz import tzutc
 
 # Get the API key from the environment
 api_key = os.environ.get('YOUTUBE_API_KEY')
@@ -42,6 +38,7 @@ def create_markdown_file(playlist, videos):
         file.write('---\n')
         file.write(f'title: "{title}"\n')
         file.write('layout: post\n')
+        file.write(f'categories: "{title}"\n\n')
         file.write('---\n\n')
         # iterate over the videos in the playlist
         for video in videos['items']:

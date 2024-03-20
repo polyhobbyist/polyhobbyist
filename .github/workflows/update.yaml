@@ -18,12 +18,15 @@ jobs:
         python-version: 3.8
 
     - name: Install Dependencies
+      env:
+        YOUTUBE_CHANNEL_ID: ${{ secrets.YOUTUBE_CHANNEL_ID }}
+        YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
       run: |
         python -m pip install --upgrade pip
-        pip install pytube pymdown-extensions
+        pip install pytube pymdown-extensions requests
 
     - name: Run update
-      run: python update.py  # Replace with your script's path
+      run: python .github/workflows/update.py  # Replace with your script's path
 
     - name: Commit and push if it's not a pull request
       run: |
